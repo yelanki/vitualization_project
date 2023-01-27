@@ -1,0 +1,27 @@
+/* body {
+    font-family: sans-serif;
+  } */
+  #app {
+    /* position: relative; */
+    /* margin: 50px 100px; */
+    border: 1px solid #dcdcdc;
+    height: 500px;
+    /* overflow: hidden;
+    overflow-y: auto; */
+  }
+   .scrollable {
+     position: absolute; 
+    /* top: 0;
+    left: 0;
+    right: 0; */
+  }
+  .visiable {
+    position: relative;
+  } 
+   .visiable > div {
+    text-align: center;
+  }
+   .search{
+    margin-left: 100px;
+  }
+  
