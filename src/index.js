@@ -117,7 +117,7 @@ visiable.style.height = `${(max*height)}px`;
  let startIdx = 1;
 
 
-render(0,perPageRender);
+render(0,perPageRender+1);
 
 
 function render(idx,ppr) {
@@ -143,7 +143,7 @@ function listener() {
   const sTop = scrollable.scrollTop;
   const min =Math.floor(sTop / height);
   const max=Math.floor((sTop+scrollable.clientHeight)/height);
-  render(min,max);
+  render(min,max+1);
 }
   };
 
