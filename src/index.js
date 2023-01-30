@@ -16,7 +16,6 @@ function generator(count){
 
 const result=generator(1_00_000);
 
-
 //function to generate and add contacts randomly to the list.
 function randomGenerator(result1){
     const intervalRef = setInterval(function(){
@@ -62,8 +61,8 @@ function cache(fn){
 const create=cache(fn); 
 
 let updateDebouncetext=debouncing(searchValue=>{
-    const res=create(searchValue);
-            print(res); 
+            const res=create(searchValue);
+              print(res); 
 });
         
      
@@ -71,81 +70,85 @@ let updateDebouncetext=debouncing(searchValue=>{
 
 function debouncing(func,delay=100){
 
-let timer;
-return (...args)=>{
-    clearTimeout(timer);
-   timer=setTimeout(()=>{
-    func(args)
-   },delay);
-}
+      let timer;
+        return (...args)=>{
+         clearTimeout(timer);
+           timer=setTimeout(()=>{
+            func(args)
+           },delay);
+        }
 };
 
 
 
 const searchResult=document.querySelector(".search");
 searchResult.addEventListener("input",function(e){
-    const value=e.target.value;
-    if(value.length>=0){
-        let searchValue=value.toLowerCase();
- updateDebouncetext(searchValue);
+          const value=e.target.value;
+        if(value.length>=0){
+          let searchValue=value.toLowerCase();
+           updateDebouncetext(searchValue);
 
-  }
+        }
 });
 
 
 
 
 
-print(result);
-//print function to print the names in the page
-function print(res){
-const app = document.getElementById("app");
-const scrollable = document.querySelector(".scrollable");
-const visiable = document.querySelector(".visiable");
-
-scrollable.scrollTop=0;
-const max =res.length;
-const height = 30;
-const visiHeight = scrollable.clientHeight;
-console.log("visi",visiHeight);
-const perPage = Math.ceil((visiHeight / height));
-const perPageRender = perPage;
-console.log("per",perPageRender)
-
-scrollable.style.height = `${perPageRender * height}px`;
-visiable.style.height = `${(max*height)}px`;
- let startIdx = 1;
 
 
-render(0,perPageRender+1);
 
+    const app = document.getElementById("app");
+    const scrollable = document.querySelector(".scrollable");
+    const visiable = document.querySelector(".visiable");
 
-function render(idx,ppr) {
-  console.log(idx,ppr);
-  visiable.style.transform = `translateY(${scrollable.scrollTop-(scrollable.scrollTop%height)}px)`;
-  if (idx === startIdx && idx !== 1) {
-    return;
-  }
-  startIdx = idx;
-  visiable.innerHTML = "";
-  for (let i = idx; i <ppr && i<res.length; i++) {
-    const div = document.createElement("div");
-    div.style.height = `${height}px`;
-    div.style.background = (i + startIdx) % 2 ? "#bbe4f7" : "#f9d1d1";
-    div.innerText = `${res[i].name}`;
-    visiable.appendChild(div);
-  }
-}
+ 
 
-scrollable.addEventListener("scroll", listener);
+      print(result);
+    //print function to print the names in the page
+   function print(res){
+         let startIdx = 1;
+         app.scrollTop=0;
+    
+          const height = 30;
+          const visiHeight = app.clientHeight+60;
+          const perPage = Math.ceil((visiHeight / height));
+          const perPageRender = perPage;
+          const max =res.length;
+          scrollable.style.height = `${max * height}px`;
+    
+         render(0,perPageRender);
+         function render(idx,ppr) {
+           console.log(idx,ppr);
+            visiable.style.transform = `translateY(${app.scrollTop-(app.scrollTop%height)}px)`;
+           if (idx === startIdx) {
+               return;
+           }
+            startIdx = idx;
+            visiable.innerHTML = "";
+            for (let i = idx; i <ppr && i<res.length; i++) {
+               console.log("i",i)
+                if(i==res.length){
+                    break;
+                }
+                 const div = document.createElement("div");
+                 div.style.height = `${height}px`;
+                 div.style.background = (i + startIdx) % 2 ? "#bbe4f7" : "#f9d1d1";
+                 div.innerText = `${res[i].name}`;
+                 visiable.appendChild(div);
+            }
+        }
 
-function listener() {
-  const sTop = scrollable.scrollTop;
-  const min =Math.floor(sTop / height);
-  const max=Math.floor((sTop+scrollable.clientHeight)/height);
-  render(min,max+1);
-}
-  };
+         app.addEventListener("scroll", listener);
+
+        function listener() {
+           const sTop = app.scrollTop;
+           console.log("stop",sTop)
+           const min =(Math.floor(sTop / height));
+           const max=Math.floor((sTop+app.clientHeight)/height)+2;
+           render(min,max+1);
+        }
+    };
 
 
 
