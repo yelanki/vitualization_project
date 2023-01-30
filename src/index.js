@@ -88,6 +88,7 @@ searchResult.addEventListener("input",function(e){
     if(value.length>=0){
         let searchValue=value.toLowerCase();
  updateDebouncetext(searchValue);
+
   }
 });
 
@@ -96,7 +97,7 @@ searchResult.addEventListener("input",function(e){
 
 
 print(result);
-//print function to print the names in the page.
+//print function to print the names in the page
 function print(res){
 const app = document.getElementById("app");
 const scrollable = document.querySelector(".scrollable");
@@ -112,7 +113,7 @@ const perPageRender = perPage;
 console.log("per",perPageRender)
 
 scrollable.style.height = `${perPageRender * height}px`;
-visiable.style.height = `${(res.length*height)}px`;
+visiable.style.height = `${(max*height)}px`;
  let startIdx = 1;
 
 
@@ -121,13 +122,13 @@ render(0,perPageRender);
 
 function render(idx,ppr) {
   console.log(idx,ppr);
-  visiable.style.transform = `translateY(${scrollable.scrollTop}px)`;
+  visiable.style.transform = `translateY(${scrollable.scrollTop-(scrollable.scrollTop%height)}px)`;
   if (idx === startIdx && idx !== 1) {
     return;
   }
   startIdx = idx;
   visiable.innerHTML = "";
-  for (let i = idx; i <=ppr; i++) {
+  for (let i = idx; i <ppr && i<res.length; i++) {
     const div = document.createElement("div");
     div.style.height = `${height}px`;
     div.style.background = (i + startIdx) % 2 ? "#bbe4f7" : "#f9d1d1";
@@ -141,7 +142,7 @@ scrollable.addEventListener("scroll", listener);
 function listener() {
   const sTop = scrollable.scrollTop;
   const min =Math.floor(sTop / height);
-  const max=(Math.floor((sTop+scrollable.clientHeight)/height));
+  const max=Math.floor((sTop+scrollable.clientHeight)/height);
   render(min,max);
 }
   };
