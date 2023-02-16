@@ -151,7 +151,7 @@ searchResult.addEventListener("input",function(e){
     };
 
 
-
+//this is list virtualizatin with pure java script
 
 
 
