@@ -25,19 +25,19 @@ function randomGenerator(result1){
         clearInterval(intervalRef);
     }
 }
-const clearGenerator = randomGenerator(result);
+//const clearGenerator = randomGenerator(result);
 
 
 //function to loop through the contactlist.
 const fn=function(arg){
     let r=[];
-for(let i=0;i<result.length;i++){
-    if(result[i].name.toLowerCase().includes(arg)){
-        r.push({name:result[i].name,mail:result[i].mail});
+  for(let i=0;i<result.length;i++){
+      if(result[i].name.toLowerCase().includes(arg)){
+          r.push({name:result[i].name,mail:result[i].mail});
     
+        }
     }
-}
-return r;
+  return r;
 }
 
 
@@ -74,8 +74,8 @@ function debouncing(func,delay=100){
         return (...args)=>{
          clearTimeout(timer);
            timer=setTimeout(()=>{
-            func(args)
-           },delay);
+               func(args)
+            },delay);
         }
 };
 
@@ -84,12 +84,12 @@ function debouncing(func,delay=100){
 const searchResult=document.querySelector(".search");
 searchResult.addEventListener("input",function(e){
           const value=e.target.value;
-        if(value.length>=0){
-          let searchValue=value.toLowerCase();
-           updateDebouncetext(searchValue);
+          if(value.length>=0){
+               let searchValue=value.toLowerCase();
+               updateDebouncetext(searchValue);
 
-        }
-});
+            }
+        });
 
 
 
@@ -111,7 +111,7 @@ searchResult.addEventListener("input",function(e){
          app.scrollTop=0;
     
           const height = 30;
-          const visiHeight = app.clientHeight+60;
+          const visiHeight = app.clientHeight;
           const perPage = Math.ceil((visiHeight / height));
           const perPageRender = perPage;
           const max =res.length;
@@ -119,23 +119,23 @@ searchResult.addEventListener("input",function(e){
     
          render(0,perPageRender);
          function render(idx,ppr) {
-           console.log(idx,ppr);
-            visiable.style.transform = `translateY(${app.scrollTop-(app.scrollTop%height)}px)`;
-           if (idx === startIdx) {
-               return;
-           }
-            startIdx = idx;
-            visiable.innerHTML = "";
-            for (let i = idx; i <ppr && i<res.length; i++) {
-               console.log("i",i)
-                if(i==res.length){
-                    break;
+               console.log(idx,ppr);
+                visiable.style.transform = `translateY(${app.scrollTop-(app.scrollTop%height)}px)`;
+               if (idx === startIdx) {
+                   return;
                 }
-                 const div = document.createElement("div");
-                 div.style.height = `${height}px`;
-                 div.style.background = (i + startIdx) % 2 ? "#bbe4f7" : "#f9d1d1";
-                 div.innerText = `${res[i].name}`;
-                 visiable.appendChild(div);
+                startIdx = idx;
+                 visiable.innerHTML = "";
+                 for (let i = idx; i <ppr && i<res.length; i++) {
+                  console.log("i",i)
+                  if(i==res.length){
+                       break;
+                    }
+                      const div = document.createElement("div");
+                       div.style.height = `${height}px`;
+                       div.style.background = (i + startIdx) % 2 ? "#bbe4f7" : "#f9d1d1";
+                       div.innerText = `${res[i].name}`;
+                        visiable.appendChild(div);
             }
         }
 
@@ -145,10 +145,17 @@ searchResult.addEventListener("input",function(e){
            const sTop = app.scrollTop;
            console.log("stop",sTop)
            const min =(Math.floor(sTop / height));
-           const max=Math.floor((sTop+app.clientHeight)/height)+2;
+           const max=Math.floor((sTop+app.clientHeight)/height);
            render(min,max+1);
         }
     };
+
+
+
+
+
+
+
 
 
 
